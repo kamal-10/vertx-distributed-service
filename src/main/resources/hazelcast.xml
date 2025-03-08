@@ -1,0 +1,8 @@
+<hazelcast>
+  <network>
+    <join>
+      <multicast enabled="true"/>
+      <tcp-ip enabled="false"/>
+    </join>
+  </network>
+</hazelcast>
