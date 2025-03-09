@@ -42,7 +42,8 @@ public class MainVerticle extends AbstractVerticle {
 
   private JsonObject loadConfig() {
     try {
-      String content = new String(Files.readAllBytes(Paths.get("config.json")));
+      ClassLoader classLoader = getClass().getClassLoader();
+      String content = new String(Files.readAllBytes(Paths.get(classLoader.getResource("config.json").toURI())));
       return new JsonObject(content);
     } catch (Exception e) {
       return new JsonObject(); // Fallback to empty config
