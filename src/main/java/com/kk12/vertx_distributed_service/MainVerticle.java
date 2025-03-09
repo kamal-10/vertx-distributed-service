@@ -50,6 +50,19 @@ public class MainVerticle extends AbstractVerticle {
   }
 
   public static void main(String[] args) {
+    HazelcastClusterManager clusterManager = new HazelcastClusterManager();
+    VertxOptions options = new VertxOptions().setClusterManager(clusterManager);
+
+    Vertx.clusteredVertx(options).onSuccess(vertx -> {
+      System.out.println("🚀 Clustered Vert.x started!");
+      vertx.deployVerticle(new MainVerticle());
+    }).onFailure(err -> {
+      System.err.println("❌ Failed to start clustered Vert.x: " + err.getMessage());
+    });
+  }
+
+
+  public static void main1(String[] args) {
 
     clusterManager = new HazelcastClusterManager();
     VertxOptions options = new VertxOptions().setClusterManager(clusterManager);
@@ -96,7 +109,7 @@ public class MainVerticle extends AbstractVerticle {
 
 
       }else{
-        roleMap.loadAll(true);  // Ensure we have all the data
+//        roleMap.loadAll(true);  // Ensure we have all the data
         long apiCount = roleMap.values().stream().filter(role -> role.equals("api")).count();
 
         String nodeId = String.valueOf(hazelcastInstance.getCluster().getLocalMember().getUuid());
@@ -135,6 +148,4 @@ public class MainVerticle extends AbstractVerticle {
       }
     }
   }
-
-
 }

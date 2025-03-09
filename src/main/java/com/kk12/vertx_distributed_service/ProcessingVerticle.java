@@ -9,7 +9,7 @@ public class ProcessingVerticle extends AbstractVerticle {
     vertx.eventBus().consumer("processing.address", message -> {
       JsonObject data = (JsonObject) message.body();
       // Simulate processing
-      data.put("status", "processed");
+      data.put("status", "MacBookFailed");
       // Send response back
       message.reply(data);
     });

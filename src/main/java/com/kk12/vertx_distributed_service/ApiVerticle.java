@@ -11,7 +11,8 @@ public class ApiVerticle extends AbstractVerticle {
       if (req.method() == HttpMethod.POST && "/process".equals(req.path())) {
         req.bodyHandler(body -> {
           JsonObject requestData = body.toJsonObject();
-          // Send request to the event bus
+          requestData.put("Key","MacBook");
+        // Send request to the event bus
           vertx.eventBus().request("processing.address", requestData, reply -> {
             if (reply.succeeded()) {
               req.response().putHeader("Content-Type", "application/json")
